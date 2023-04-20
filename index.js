@@ -5,8 +5,10 @@ const Max_hight = 950;
             // console.log(1);    
 let Fx; 
 let Mya=[]; 
-let Mya2=[];
+// let Mya2=[];
+let lyp;//lat one y position
 let Mvp;//Meteorite velocity parameters
+let Mavp;//Meteorite automatic velocity parameters
 let index;
 let Meteorites = [];
 
@@ -17,10 +19,11 @@ function setup(){
 }
 function basic_condition(){
     Fx = 300; 
-    Mya = [-10, -100, -350,-700, -850]; 
-    Mvp = 3;  
+    Mya = [-75,  -350, -850]; 
+    Mavp = 5;  
+    Mvp = Mavp;
     index = 0;                                          
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 100; i++) {
             
         const Mx = Math.floor(Math.random() * 530)+25;
 
@@ -35,7 +38,11 @@ function basic_condition(){
             My =  Mya[Rem]-Max_hight*Int;  
         }
         let Pi = Math.random();
-        Mya2.push(My);
+        // Mya2.push(My);
+        if (i===99){
+            lyp=My;
+
+        }
         const M = {x:Mx, y:My ,p:Pi} ;
         Meteorites.push(M); 
     }                            
@@ -50,7 +57,7 @@ function draw(){
     background(29, 29, 29);  
     F_move();
     draw_Meteorites();
-    Fighter();
+    Fighter(); 
 } 
 
 
@@ -142,44 +149,39 @@ function Meteorite(M){
 }
 
 // Meteorite move
-function M_move(M,index){
-    
-    let qew = Mya2[index];
+function M_move(M){
     if(M.y<950){
-
         M.y+=Mvp;
+        if(Mavp<15){
+            Mavp+=0.0001; 
+            // console.log(Mavp);    
+
+            // Mvp+=0.000001; 
+        }
         if (keyIsDown(87)||keyIsDown(38)&&Mvp<30){
             Mvp+=0.01;   
         }
-        else if (keyIsDown(83)||keyIsDown(40)&&Mvp>1){
+        else if (keyIsDown(83)||keyIsDown(40)&&Mvp>4){
             Mvp-=0.005;   
         }
-        else{
-            if(Mvp>2){
+        else{ 
+            if(Mvp>Mavp){
                 Mvp-=0.001;   
             }
-            else if(Mvp<2){
-                Mvp+=0.1;   
+            else if(Mvp< Mavp){
+                Mvp+=0.001;   
             }
         }
     }
-
     else{
-        M.y=M.y-950+qew*2; 
-
-
-       
-        
-
+        M.y=M.y+lyp; 
     }
-
 }
 
 function draw_Meteorites(){
-    Meteorites.forEach((M, index) =>{
-        // Mya[index]=M.y; 
+    Meteorites.forEach((M) =>{
         Meteorite(M);    
-        M_move(M,index);
+        M_move(M);
 
     });
       
