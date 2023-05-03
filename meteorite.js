@@ -1,7 +1,10 @@
 export default class meteorite{
-    constructor(M,lyp){
+    constructor(M,lyp,fx,fy){
         this.M=M;
         this.lyp=lyp;
+        this.fx=fx;
+        this.fy=fy;
+
     }
     draw(){
         if(this.M.y<950){   
@@ -54,5 +57,14 @@ export default class meteorite{
             this.M.y=this.M.y+this.lyp; //Refresh position
 
         }
+
+        
+    }
+    judgement(){
+        let distance=Math.pow((this.M.x-this.fx), 2)+Math.pow((this.fy+300-this.M.y),2);
+
+        if(Math.pow(distance, 0.5)<50){
+            // console.log("crush");
+        } 
     }
 }
