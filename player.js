@@ -4,6 +4,7 @@ export default class player{
         this.y=y;
         this.a=a;
         this.index=0;
+        this.time=0;
     }
     draw(){
         translate(this.x, this.y+300);
@@ -75,8 +76,12 @@ export default class player{
         if(keyIsDown(32)){
             if(this.index<this.a.length){
                 this.a[this.index].x=this.x;
-                this.a[this.index].p=10;
-                this.index=this.index+1;
+                this.a[this.index].p=10 ;
+                this.time++;
+                if(this.time>=5){
+                    this.index=this.index+1;    
+                    this.time=0;
+                }
             }else{
                 this.index=0;
             }
