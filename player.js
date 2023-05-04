@@ -75,18 +75,19 @@ export default class player{
     attack(){
         if(keyIsDown(32)){
             if(this.index<this.a.length){
-                this.a[this.index].x=this.x;
-                this.a[this.index].p=10 ;
                 this.time++;
                 if(this.time>=5){
+                    this.a[this.index].x=this.x;
+                    this.a[this.index].p=7.5;
                     this.index=this.index+1;    
                     this.time=0;
                 }
             }else{
                 this.index=0;
             }
+        }else{
+            this.time=5;
         }
     }
     
 }
-    

@@ -31,7 +31,7 @@ window.setup = setup;
 
 function basic_condition(){
     Fx = 300; 
-    Mya = [-75,  -350, -800]; //M y position  a rray
+    Mya = [-75,  -350, -800]; //M y position  array
     index = 0;    
     Killed = 0;                
 
