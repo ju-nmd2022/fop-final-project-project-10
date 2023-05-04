@@ -64,7 +64,7 @@ export default class meteorite{
         let distance=Math.pow((this.M.x-this.fx), 2)+Math.pow((this.fy+300-this.M.y),2);
 
         if(Math.pow(distance, 0.5)<50){
-            // console.log("crush");
+            console.log("clash");
         } 
     }
 }

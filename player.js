@@ -1,7 +1,9 @@
 export default class player{
-    constructor(x,y){
+    constructor(x,y,a){
         this.x=x;
         this.y=y;
+        this.a=a;
+        this.index=0;
     }
     draw(){
         translate(this.x, this.y+300);
@@ -13,42 +15,31 @@ export default class player{
         //body
         fill(112, 112, 112);
         quad(-20, -80, -20, 50, 20, 50, 20, -80);
-        //
         fill(118, 118, 118);
         quad(-10, -80, -10, 50, 10, 50, 10, -80);
-        //左引擎
         fill(100, 100, 100);
         quad(-65, 50, -65, 35, -40, 25, -40, 50);
-        //左翅膀
         fill(118, 118, 118);
         quad(-20, -50, -130, 35, -100, 53, -20, 20);
-        //左翅膀上面的
         fill(108, 108, 110);
         quad(-115, 44, -100, 53, -20, 20, -20, -25);
-        //右引擎
         fill(100, 100, 100);
         quad(40, 50, 65, 50, 65, 30, 40, 25);
-        //右翅膀
         fill(118, 118, 118);
         quad(20, -50, 130, 35, 100, 53, 20, 20);
-        //右翅膀上面的
         fill(108, 108, 110);
         quad(20, -25, 20, 20, 100, 53, 115, 44);
-        //尾巴
         fill(118, 118, 118);
         quad(-10, 90, -10, 50, 10, 50, 10, 90);
-        //左尾翼
         fill(118, 118, 118);
         quad(-55, 75, -45, 90, -10, 85, -10, 55);
-        //左尾翼上面的
         fill(108, 108, 110);
         quad(-50, 82, -45, 90, -10, 85, -10, 65);
-        //右尾翼
         fill(118, 118, 118);
         quad(10, 55, 10, 85, 45, 90, 55, 75);
-        //右尾翼上面的
         fill(108, 108, 110);
         quad(10, 65, 10, 85, 45, 90, 50, 82);
+        
         
     }
     move() {
@@ -63,6 +54,33 @@ export default class player{
 
         }
 
+    }
+    draw_ammo(){
+        for(let i=0; i < this.a.length; i++){
+            if(this.a[i].y>=10){
+                this.a[i].y-=this.a[i].p;
+            }else{
+                this.a[i].y=this.y+300;
+                this.a[i].x=0;
+                this.a[i].p=0;
+            }
+            push();
+            translate(this.a[i].x, this.a[i].y);
+            fill(0, 0, 0);
+            ellipse(0, 0, 10, 10);
+            pop();
+        }
+    }
+    attack(){
+        if(keyIsDown(32)){
+            if(this.index<this.a.length){
+                this.a[this.index].x=this.x;
+                this.a[this.index].p=10;
+                this.index=this.index+1;
+            }else{
+                this.index=0;
+            }
+        }
     }
     
 }
