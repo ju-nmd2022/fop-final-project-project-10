@@ -1,9 +1,13 @@
 import player from "./player.js";
 import meteorite from "./meteorite.js";
 import enemies from "./enemies.js";
+import Planet from "./Planet.js";
+import nightSky from "./nightSky.js";
+
   
 let fighter;
-let Ammo;
+let NSO; //night Sky Object
+let Planets;
 const cx = 300; 
 const cy = 450; 
 const Max_width = 600;
@@ -20,9 +24,14 @@ let index;
 let Meteorites = [];
 let Enemies = [];
 let Ammo_array = [];
+let stars = [];
 let Met;
 let Enm;
 let playerLifeValue;//
+let EarthY=cy-400;
+let SaturnY=cy+500;
+let MarsY=cy-2500;
+let JupiterY=cy-1500;
 
 function setup(){
     createCanvas(600,900);
@@ -31,11 +40,14 @@ function setup(){
 window.setup = setup;
 
 function basic_condition(){
+    
     Fx = 300; 
     Mya = [-75,  -350, -800]; //M y position  array
     index = 0;    
     Killed = 0;                
     playerLifeValue=100;//
+    
+
     for (let i = 0; i < 100; i++) {
         // Meteorite
         const Mx = Math.floor(Math.random() * 530)+25;
@@ -75,9 +87,19 @@ function basic_condition(){
 
 
     }  
+    for (let i = 0; i < 300; i++) {
+        const star = {
+            x : Math.floor(Math.random() * Max_width),
+            y : Math.floor(Math.random() * Max_hight),
+            s : Math.floor(Math.random() * 3),
+            a : Math.random()
+        };
+        stars.push(star);
+        
+    }
+    
     fighter=new player(Fx,cy,Ammo_array);
-    // console.log(Enemies);
-
+    Planets=new Planet(cx,EarthY,SaturnY,MarsY,JupiterY);
 } 
 
 // main program
@@ -86,6 +108,7 @@ basic_condition();
 function draw(){  
     clear();
     background(29, 29, 29); 
+    NightSkyandPlanet();
     creatEnemies();
     creatMeteorites();
     creatPlayer();
@@ -145,8 +168,8 @@ function creatEnemies(){
     });  
     // console.log(Killed);
 
-}
-function Score(){
+} 
+function Score(){ 
     // console.log(Killed); 
     push();
     fill(255,255,255);
@@ -154,5 +177,12 @@ function Score(){
     text("Score: "+Killed*100, 24, 120);
     pop();
 }
-
-
+function NightSkyandPlanet(){
+    
+    stars.forEach((S)=>{
+        NSO=new nightSky(S);
+        NSO.draw();
+    });
+    Planets.draw();
+    Planets.move();   
+}
