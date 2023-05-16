@@ -1,12 +1,21 @@
 export default class meteorite{
-    constructor(M,lyp,fx,fy){
+    constructor(M,lyp,fx,fy,playerLifeValue){
         this.M=M;
         this.lyp=lyp;
         this.fx=fx;
         this.fy=fy;
-
+        this.playerLifeValue=playerLifeValue;
     }
     draw(){
+        push();
+        fill(255,255,255);
+        textSize(15);
+        text("Airframe integrity: "+this.playerLifeValue+"%", 24, 75);
+        pop();
+        push();
+        fill(220,20,60);
+        rect(20, 85, this.playerLifeValue*2, 10, 10);
+        pop();
         if(this.M.y<950){   
             push(); 
             fill(255,255,255);
@@ -27,13 +36,14 @@ export default class meteorite{
             ellipse(8.5, 1, 2.5, 2.5);
             pop();
         }
+        
     }
     move(){
 
         if(this.M.y<950){
             this.M.y+=this.M.vp;
             if(this.M.avp<15){
-                this.M.avp+=0.01;  
+                this.M.avp+=0.02;  
             }
             if (keyIsDown(87)&&this.M.vp<30||keyIsDown(38)&&this.M.vp<30){
                 this.M.vp+=0.2; 
@@ -64,7 +74,9 @@ export default class meteorite{
         let distance=Math.pow((this.M.x-this.fx), 2)+Math.pow((this.fy+300-this.M.y),2);
 
         if(Math.pow(distance, 0.5)<50){
-            console.log("clash");
+            if(this.playerLifeValue>=0){
+                this.playerLifeValue-=2;
+            }
         } 
     }
 }

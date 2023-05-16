@@ -22,6 +22,7 @@ let Enemies = [];
 let Ammo_array = [];
 let Met;
 let Enm;
+let playerLifeValue;//
 
 function setup(){
     createCanvas(600,900);
@@ -34,7 +35,7 @@ function basic_condition(){
     Mya = [-75,  -350, -800]; //M y position  array
     index = 0;    
     Killed = 0;                
-
+    playerLifeValue=100;//
     for (let i = 0; i < 100; i++) {
         // Meteorite
         const Mx = Math.floor(Math.random() * 530)+25;
@@ -84,30 +85,38 @@ basic_condition();
 
 function draw(){  
     clear();
-    background(29, 29, 29);  
-    creat_Meteorites();
-    creat_enemies();
+    background(29, 29, 29); 
+    creatEnemies();
+    creatMeteorites();
+    creatPlayer();
+    Score();
+} 
+window.draw = draw;
+function creatPlayer(){
     push(); 
     fighter.draw_ammo();
     fighter.attack(); 
-    pop();
-    push();
+    // pop();
+    // push();
     fighter.draw();   
     fighter.move();
     pop();
-} 
-window.draw = draw;
+}
 
-function creat_Meteorites(){
 
+function creatMeteorites(){
     Meteorites.forEach((M) =>{
-        Met=new meteorite(M,lyp,fighter.x,fighter.y);
+        Met=new meteorite(M,lyp,fighter.x,fighter.y,playerLifeValue);
         Met.draw();
         Met.move();      
         Met.judgement();
+        playerLifeValue=Met.playerLifeValue;
+        if(Met.playerLifeValue<=0){
+            console.log(1);
+        }
     });         
 }
-function creat_enemies(){
+function creatEnemies(){
 
     Enemies.forEach((E) =>{
         Enm=new enemies(E,Enemies.indexOf(E));
@@ -129,13 +138,21 @@ function creat_enemies(){
             if(Math.pow(distance, 0.5)<20){
                 E.y=1000;
                 Killed++;
-                console.log(Killed); 
+                
 
-            } 
+            }  
         });
     });  
     // console.log(Killed);
 
+}
+function Score(){
+    // console.log(Killed); 
+    push();
+    fill(255,255,255);
+    textSize(15);
+    text("Score: "+Killed*100, 24, 120);
+    pop();
 }
 
 
