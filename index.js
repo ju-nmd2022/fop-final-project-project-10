@@ -1,4 +1,5 @@
 // console.log(1);
+// localStorage.clear();
 import player from "./player.js";
 import meteorite from "./meteorite.js";
 import enemies from "./enemies.js";
@@ -24,6 +25,10 @@ const cx = 300;
 const cy = 450; 
 const Max_width = 600;
 const Max_hight = 950;
+let bestScore=0;
+if(localStorage.getItem("best") != null){
+    bestScore = localStorage.getItem("best");// Reading
+}
 let Killed=0;  
 let Kp;
 let Fx=300; 
@@ -83,7 +88,6 @@ for (let i = 0; i < 300; i++) {
         a : Math.random()
     };
     stars.push(star);
-    Planets=new Planet(cx,EarthY,SaturnY,MarsY,JupiterY);
 }
 
 
@@ -104,6 +108,9 @@ function basic_condition(){
     MarsY=cy-2500;
     JupiterY=cy-1500;
     operationalStatus=-1;
+    if(localStorage.getItem("best") != null){
+        bestScore = localStorage.getItem("best");// Reading
+    }
 
     for (let i = 0; i < 100; i++){ 
         //refresh Meteorites position
@@ -128,6 +135,7 @@ function basic_condition(){
     }
 
     fighter=new player(Fx,cy,Ammo_array);
+    Planets=new Planet(cx,EarthY,SaturnY,MarsY,JupiterY);
 } 
 
 
@@ -149,9 +157,11 @@ function draw(){
         creatMeteorites();
         creatPlayer();
         Score();
+        Planets.move();   
     }
     if(operationalStatus===1){
         endPage();
+        Planets.move();   
     }
     
 } 
@@ -161,13 +171,10 @@ function mouseClicked(){
     if(operationalStatus===1){
         operationalStatus=-1;
         basic_condition();//refresh 
-        // startPage();
-
-
     }else if(operationalStatus===-1){
         operationalStatus=0;
     }
-            console.log(operationalStatus);
+    // console.log(operationalStatus);
 
 
 } 
@@ -244,17 +251,31 @@ function fixedScenes(){
         NSO.draw();
     });
     Planets.draw();
-    Planets.move();   
 }
 
 function startPage(){
     push();
-    fill(255,255,255);
-    textAlign(CENTER);
+    fill(255, 255, 255);
     textFont();
-    textSize(40);
-    text("start game", cx, cy);
-    pop();
+    textAlign(CENTER);
+    push();
+    textSize(80);
+    text("Starfield", cx, cy); 
+    pop();  
+    textSize(12);
+    text("You need to dodge meteorites." , cx, cy+300);
+    text( "shoot down enemies to score points.", cx, cy+320); 
+    textSize(15);
+    text("Click on the screen to start the game", cx, cy+200); 
+    pop(); 
+    if(bestScore>0){
+        push();
+        fill(255,255,255);
+        textAlign(CENTER);
+        textSize(20);
+        text("The Bast Recoed is "+bestScore, cx, cy-200); 
+        pop();
+    }
 }
 
 function endPage(){
@@ -265,4 +286,13 @@ function endPage(){
     textSize(40);
     text("You Final Score is "+Killed*100, cx, cy);
     pop();
+    if(Killed*100>bestScore){
+        push();
+        fill(255,255,255);
+        textAlign(CENTER);
+        textSize(20);
+        text("The New Recoed ! ", cx, cy-200); 
+        pop();
+        localStorage.setItem ("best",Killed*100) ;// Writing
+    }
 }
