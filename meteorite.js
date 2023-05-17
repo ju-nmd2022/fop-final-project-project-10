@@ -36,39 +36,18 @@ export default class meteorite{
             ellipse(8.5, 1, 2.5, 2.5);
             pop();
         }
-        
     }
     move(){
 
         if(this.M.y<950){
             this.M.y+=this.M.vp;
-            if(this.M.avp<15){
-                this.M.avp+=0.02;  
+            if(this.M.vp<=20){
+                this.M.vp+=0.01;   
             }
-            if (keyIsDown(87)&&this.M.vp<30||keyIsDown(38)&&this.M.vp<30){
-                this.M.vp+=0.2; 
-            }
-            else if (keyIsDown(83)&&this.M.vp>4||keyIsDown(40)&&this.M.vp>4){
-                this.M.vp-=0.25;   
-            }
-            else{ 
-                if(this.M.vp>this.M.avp){
-                    this.M.vp-=0.1;   
-                }
-                else if(this.M.vp< this.M.avp){
-                    this.M.vp+=0.1;   
-                }
-            }
-            
-
-
         }
         else{
             this.M.y=this.M.y+this.lyp; //Refresh position
-
         }
-
-        
     }
     judgement(){
         let distance=Math.pow((this.M.x-this.fx), 2)+Math.pow((this.fy+300-this.M.y),2);

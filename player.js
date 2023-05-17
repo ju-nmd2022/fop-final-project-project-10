@@ -60,17 +60,18 @@ export default class player{
         for(let i=0; i < this.a.length; i++){
             if(this.a[i].y>=10){
                 this.a[i].y-=this.a[i].p;
+                push();
+                translate(this.a[i].x, this.a[i].y);
+                stroke(252, 79, 0);
+                fill(247, 149, 64);
+                quad(2, 0, 2, 10, -2, 10, -2, 0);
+                pop();
             }else{
                 this.a[i].y=this.y+300;
-                this.a[i].x=0;
+                this.a[i].x=-10;
                 this.a[i].p=0;
             }
-            push();
-            translate(this.a[i].x, this.a[i].y);
-            stroke(252, 79, 0);
-            fill(247, 149, 64);
-            quad(2, 0, 2, 10, -2, 10, -2, 0);
-            pop();
+            
         }
     }
     attack(){

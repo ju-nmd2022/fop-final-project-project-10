@@ -39,7 +39,7 @@ export default class Planet{
       
         //Saturn
         push();
-        translate(this.x, this.SaturnY);
+        translate(this.x+150, this.SaturnY);
         rotate(-0.4);
         scale(5);
         noStroke();
