@@ -1,8 +1,10 @@
 export default class enemies{
-    constructor(x,y){
-        this.E=x;
-
-        this.index=y;
+    constructor(E,index,killed,killedP,ammo){
+        this.E=E;
+        this.index=index;
+        this.killed=killed;
+        this.killedP=killedP;
+        this.ammo=ammo;
     }
     draw(){
         if(this.E.y<=165){
@@ -57,8 +59,18 @@ export default class enemies{
         }
     }
     move(){
-        if(this.E.y<165){
-            this.E.y++;
+        if(this.index>=this.killedP&&this.index<this.killedP+3){
+            if(this.E.y<165){
+                this.E.y++;
+            }
+        }
+    }
+    judgement(){
+        for(let i=0; i < this.ammo.length; i++){ 
+            if(Math.pow((Math.pow((this.E.x-this.ammo[i].x), 2)+Math.pow((this.ammo[i].y-this.E.y),2)), 0.5)<20){
+                this.E.y=1000;
+                this.killed++;
+            }  
         }
     }
 }    

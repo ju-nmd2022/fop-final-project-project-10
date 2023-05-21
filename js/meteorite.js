@@ -38,7 +38,6 @@ export default class meteorite{
         }
     }
     move(){
-
         if(this.M.y<950){
             this.M.y+=this.M.vp;
             if(this.M.vp<=20){
@@ -46,12 +45,11 @@ export default class meteorite{
             }
         }
         else{
-            this.M.y=this.M.y+this.lyp; //Refresh position
+            this.M.y+=this.lyp; //Refresh position
         }
     }
     judgement(){
         let distance=Math.pow((this.M.x-this.fx), 2)+Math.pow((this.fy+300-this.M.y),2);
-
         if(Math.pow(distance, 0.5)<50){
             if(this.playerLifeValue>=0){
                 this.playerLifeValue-=2;

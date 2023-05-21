@@ -59,7 +59,7 @@ export default class player{
     draw_ammo(){
         for(let i=0; i < this.a.length; i++){
             if(this.a[i].y>=10){
-                this.a[i].y-=this.a[i].p;
+                this.a[i].y-=this.a[i].moveP;
                 push();
                 translate(this.a[i].x, this.a[i].y);
                 stroke(252, 79, 0);
@@ -69,7 +69,7 @@ export default class player{
             }else{
                 this.a[i].y=this.y+300;
                 this.a[i].x=-10;
-                this.a[i].p=0;
+                this.a[i].moveP=0;
             }
             
         }
@@ -80,7 +80,7 @@ export default class player{
                 this.time++;
                 if(this.time>=5){
                     this.a[this.index].x=this.x;
-                    this.a[this.index].p=7.5;
+                    this.a[this.index].moveP=7.5;
                     this.index=this.index+1;    
                     this.time=0;
                 }
