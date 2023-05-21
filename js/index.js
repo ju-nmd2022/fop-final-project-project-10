@@ -259,18 +259,18 @@ function startPage(){
     textFont();
     textAlign(CENTER);
     push();
-    textSize(80);
-    text("Starfield", cx, cy); 
+    textSize(70);
+    text("Starstream", cx, cy); 
     pop();  
-    textSize(12);
-    text("You need to dodge meteorites." , cx, cy+300);
-    text( "shoot down enemies to score points.", cx, cy+320); 
+    textSize(16);
+    text("You need control fighter jet to dodge meteorites." , cx, cy+180);
+    text( "And shoot down enemies to score points.", cx, cy+200); 
     textSize(15);
-    text("Click on the screen to start the game", cx, cy+200); 
+    text("Click on the screen to start the game", cx, cy+320); 
     pop(); 
     if(bestScore>0){
         push();
-        fill(255,255,255);
+        fill(255,215,0);
         textAlign(CENTER);
         textSize(20);
         text("The Bast Recoed is "+bestScore, cx, cy-200); 
@@ -288,11 +288,18 @@ function endPage(){
     pop();
     if(Killed*100>bestScore){
         push();
-        fill(255,255,255);
+        fill(255,215,0);
         textAlign(CENTER);
         textSize(20);
         text("The New Recoed ! ", cx, cy-200); 
         pop();
         localStorage.setItem ("best",Killed*100) ;// Writing
     }
+    push();
+    fill(255,255,255);
+    textAlign(CENTER);
+    textFont();
+    textSize(15);
+    text("Click on the screen to restart the game ", cx, cy+300);
+    pop();
 }
